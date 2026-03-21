@@ -12,7 +12,6 @@ export interface PostCardProps {
 }
 
 export function PostCard({ id, content, repliesCount, createdAt }: PostCardProps) {
-  // Zaman farkını hesapla
   const getTimeAgo = (date: Date) => {
     const now = new Date();
     const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
@@ -26,25 +25,23 @@ export function PostCard({ id, content, repliesCount, createdAt }: PostCardProps
 
   return (
     <div 
-      className="group relative bg-(--bg-card) rounded-[28px] p-6 
+      className="group relative bg-(--bg-card) rounded-[18px] p-5 
                  border border-(--border-subtle) hover:bg-(--bg-card-hover) w-full h-full
-                 transition-all duration-300 cursor-pointer flex flex-col shadow-lg shadow-black/20"
+                 transition-colors duration-300 cursor-pointer flex flex-col"
       onClick={() => window.location.href = `/post/${id}`}
     >
-      {/* İçerik */}
-      <div className="mb-6 flex-1">
-        <p className="text-[#e2e8f0] leading-relaxed whitespace-pre-wrap text-[15px] font-medium tracking-wide">
+      <div className="mb-5 flex-1">
+        <p className="text-[#cbd5e1] leading-[1.6] whitespace-pre-wrap text-[14px] font-normal tracking-[0.015em]">
           {content}
         </p>
       </div>
 
-      {/* Alt kısım: zaman ve cevap sayısı */}
-      <div className="flex items-center justify-between text-[#64748b] text-[13px] mt-auto font-medium">
+      <div className="flex items-center justify-between text-[#64748b] text-[12px] mt-auto font-medium">
         <span>{getTimeAgo(createdAt)}</span>
         
-        <div className="flex items-center gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-          <MessageCircle className="w-[15px] h-[15px]" />
-          <span>{repliesCount > 0 ? repliesCount : ""}</span>
+        <div className="flex items-center gap-1.5 opacity-50 group-hover:opacity-100 transition-opacity">
+          <MessageCircle className="w-[14px] h-[14px] stroke-[2px]" />
+          {repliesCount > 0 && <span>{repliesCount}</span>}
         </div>
       </div>
     </div>
