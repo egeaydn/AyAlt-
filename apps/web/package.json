@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.100.0",
+    "@supabase/supabase-js": "^2.100.1",
     "@workspace/ui": "*",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
