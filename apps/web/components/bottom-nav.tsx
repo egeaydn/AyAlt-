@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Plus, User } from "lucide-react";
+import { Home, Plus, User, PieChart } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -11,12 +11,14 @@ export function BottomNav({ onOpenShareAction }: { onOpenShareAction: () => void
 
   const tabs = [
     { name: "Akış", path: "/", icon: Home },
+    { name: "Anketler", path: "/polls", icon: PieChart },
     { name: "Paylaş", action: onOpenShareAction, icon: Plus },
     { name: "Paylaşımlarım", path: "/ShareAndComments", icon: User }
   ];
 
   useEffect(() => {
-    if (pathname === '/ShareAndComments') setActiveIndex(2);
+    if (pathname === '/ShareAndComments') setActiveIndex(3);
+    else if (pathname === '/polls') setActiveIndex(1);
     else if (pathname === '/') setActiveIndex(0);
   }, [pathname]);
 
