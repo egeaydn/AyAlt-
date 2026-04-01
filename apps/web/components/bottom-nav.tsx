@@ -29,7 +29,7 @@ export function BottomNav({ onOpenShareAction }: { onOpenShareAction: () => void
           
           <div className="absolute left-1.5 right-1.5 top-1.5 bottom-1.5 pointer-events-none">
             <div 
-              className="w-1/3 h-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="w-1/4 h-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
               style={{ transform: `translateX(${activeIndex * 100}%)` }}
             >
               <div className="w-full h-full bg-white/8 rounded-full" />

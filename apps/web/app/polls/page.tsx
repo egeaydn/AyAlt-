@@ -42,8 +42,8 @@ export default function PollsPage() {
         });
         setPolls(mappedPolls);
       }
-    } catch (err) {
-      console.error("Anketler çekilirken hata:", err);
+    } catch (err: any) {
+      console.error("Anketler çekilirken hata:", err.message || err);
     } finally {
       setLoading(false);
     }
