@@ -1,14 +1,16 @@
 "use client";
 
-import { MessageCircle, Clock, MoreHorizontal } from "lucide-react";
+import { MessageCircle, Clock, MoreHorizontal, PieChart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase, getAuthorId } from "../../lib/supabase";
 import { PostDetailModal } from "@/components/post-detail-modal";
+import { PollCard } from "@/components/poll-card";
 
 export default function ShareAndCommentsPage() {
-  const [activeTab, setActiveTab] = useState<"posts" | "comments">("posts");
+  const [activeTab, setActiveTab] = useState<"posts" | "comments" | "polls">("posts");
   const [posts, setPosts] = useState<any[]>([]);
   const [comments, setComments] = useState<any[]>([]);
+  const [polls, setPolls] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPost, setSelectedPost] = useState<any>(null);
 
@@ -60,9 +62,34 @@ export default function ShareAndCommentsPage() {
     }
   };
 
+  const fetchMyPolls = async () => {
+    try {
+      const authorId = getAuthorId();
+      const { data, error } = await supabase
+        .from("polls")
+        .select(`*, poll_options(*), poll_votes(id, author_id)`)
+        .eq("author_id", authorId)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      if (data) {
+        setPolls(data.map((item: any) => ({
+          id: item.id,
+          question: item.question,
+          totalVotes: item.total_votes || 0,
+          options: item.poll_options || [],
+          hasVotedProp: item.poll_votes?.some((v: any) => v.author_id === authorId),
+          createdAt: new Date(item.created_at),
+        })));
+      }
+    } catch (err) {
+      console.error("Anketlerim çekilirken hata:", err);
+    }
+  };
+
   const loadAllData = async () => {
     setLoading(true);
-    await Promise.all([fetchMyPosts(), fetchMyComments()]);
+    await Promise.all([fetchMyPosts(), fetchMyComments(), fetchMyPolls()]);
     setLoading(false);
   };
 
@@ -74,7 +101,11 @@ export default function ShareAndCommentsPage() {
     };
 
     window.addEventListener("postCreated", handleCreated);
-    return () => window.removeEventListener("postCreated", handleCreated);
+    window.addEventListener("pollCreated", handleCreated);
+    return () => {
+      window.removeEventListener("postCreated", handleCreated);
+      window.removeEventListener("pollCreated", handleCreated);
+    };
   }, []);
 
   const handleCommentClick = async (postId: string) => {
@@ -141,6 +172,16 @@ export default function ShareAndCommentsPage() {
               >
                 Yorumlar ({comments.length})
               </button>
+              <button
+                onClick={() => setActiveTab("polls")}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  activeTab === "polls" 
+                    ? "bg-white text-[#0f172a] shadow-sm" 
+                    : "text-[#cbd5e1] hover:text-white"
+                }`}
+              >
+                Anketler ({polls.length})
+              </button>
             </div>
           </div>
         </header>
@@ -206,7 +247,7 @@ export default function ShareAndCommentsPage() {
                 </p>
               </div>
             )
-          ) : (
+          ) : activeTab === "comments" ? (
             comments.length > 0 ? (
               <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
                 {comments.map((comment) => (
@@ -242,7 +283,25 @@ export default function ShareAndCommentsPage() {
                 </p>
               </div>
             )
-          )}
+          ) : activeTab === "polls" ? (
+            polls.length > 0 ? (
+              <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
+                {polls.map((poll) => (
+                  <PollCard key={poll.id} {...poll} onVote={() => {}} />
+                ))}
+              </div>
+            ) : (
+              <div className="w-full max-w-3xl mx-auto text-center py-20 bg-(--bg-card)/50 border border-white/5 rounded-3xl backdrop-blur-sm">
+                <div className="w-16 h-16 bg-[#1e293b]/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#334155]">
+                  <PieChart className="w-6 h-6 text-[#94a3b8]" />
+                </div>
+                <h3 className="text-lg font-medium text-white mb-2">Henüz Bir Anket Başlatmadın</h3>
+                <p className="text-[#94a3b8] text-sm max-w-sm mx-auto">
+                  Anketler sayfasından veya alt menüdeki oluştur butonunu kullanarak ilk anketini oluşturabilirsin.
+                </p>
+              </div>
+            )
+          ) : null}
         </main>
       </div>
       
