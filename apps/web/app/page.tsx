@@ -51,38 +51,39 @@ export default function Page() {
 
   return (
     <div>
-        <div className="relative min-h-screen w-full flex flex-col items-center">
-      <header className="relative z-10 w-full pt-12 pb-8 px-6">
-        <div className="w-full max-w-5xl mx-auto text-center">
-          <h1 className="text-3xl md:text-[44px] lg:text-[32px] font-serif text-white mb-4 tracking-wide opacity-90">
-           Uykusuz Değilsin
-          </h1>
-          <p className="text-[#94a3b8] text-[15px] font-medium tracking-wide">
-            Uykuyu Unutmuş Bir İnsana İyi Geceler Diyemezsin
-          </p>
-        </div>
-      </header>
+      <div className="relative min-h-screen w-full flex flex-col items-center">
+        <header className="relative z-10 w-full pt-16 pb-12 px-4 sm:px-6">
+          <div className="w-full max-w-5xl mx-auto text-center animate-float">
+            <h1 className="text-4xl md:text-5xl font-bold text-gradient-premium mb-4 tracking-tight drop-shadow-sm">
+              Uykusuz Değilsin
+            </h1>
+            <p className="text-gray-300 text-base md:text-lg font-medium tracking-wide">
+              Uykuyu Unutmuş Bir İnsana İyi Geceler Diyemezsin
+            </p>
+          </div>
+        </header>
 
-      <main className="relative z-10 w-full pb-32 px-6">
-        {loading ? (
-          <div className="w-full max-w-5xl mx-auto text-center py-10 opacity-60 text-white flex flex-col items-center gap-3">
-            <div className="w-6 h-6 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
-            Dertler yükleniyor...
-          </div>
-        ) : posts.length > 0 ? (
-          <div className="w-full max-w-6xl mx-auto columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4">
-            {posts.map((post) => (
-              <div key={post.id} className="break-inside-avoid mb-4">
-                <PostCard {...post} onClick={() => setSelectedPost(post)} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="w-full max-w-5xl mx-auto text-center py-10 opacity-60 text-white">
-            Henüz hiçbir dert girilmemiş. İlk içini döken sen ol!
-          </div>
-        )}
-      </main>
+        <main className="relative z-10 w-full pb-32 px-4 sm:px-6">
+          {loading ? (
+            <div className="w-full max-w-5xl mx-auto text-center py-20 text-[--teal-accent] flex flex-col items-center gap-4">
+              <div className="w-10 h-10 border-indigo-500/30 border-t-teal-400 rounded-full animate-spin border-4" />
+              <span className="animate-pulse-soft font-medium">Dertler yükleniyor...</span>
+            </div>
+          ) : posts.length > 0 ? (
+            <div className="w-full max-w-7xl mx-auto columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+              {posts.map((post) => (
+                <div key={post.id} className="break-inside-avoid">
+                  <PostCard {...post} onClick={() => setSelectedPost(post)} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="w-full max-w-4xl mx-auto text-center py-24 glass-card rounded-3xl">
+              <p className="text-xl font-medium text-white mb-2">Henüz hiçbir dert girilmemiş.</p>
+              <p className="text-gray-400">İlk içini döken sen ol!</p>
+            </div>
+          )}
+        </main>
       </div>
 
       <PostDetailModal 

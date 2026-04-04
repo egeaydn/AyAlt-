@@ -1,47 +1,100 @@
 @import "tailwindcss";
 @source "../../../../apps/web";
 
-/* Gece Ay Mavisi Teması */
-:root {
-  --bg-midnight: #0a1128;
-  --bg-card: #121a2f;
-  --bg-card-hover: #17223b;
-  --accent-moon: #ffffff;
-  --accent-glow: #cbd5e1;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --shadow-glow: rgba(0, 0, 0, 0.4);
-  --purple-accent: #c4b5fd;
+@layer base {
+  :root {
+    --bg-midnight: #030712;
+    --bg-card: rgba(17, 24, 39, 0.4);
+    --bg-card-hover: rgba(31, 41, 55, 0.5);
+    --accent-moon: #e2e8f0;
+    --accent-glow: #38bdf8;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --border-hover: rgba(255, 255, 255, 0.1);
+    --shadow-glow: rgba(56, 189, 248, 0.15);
+    --purple-accent: #818cf8;
+    --teal-accent: #2dd4bf;
+  }
+
+  html {
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* Optimize font rendering and provide premium background */
+  body {
+    background: radial-gradient(circle at 50% 0%, #111827 0%, var(--bg-midnight) 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
 }
 
+@layer utilities {
+  /* Premium Glassmorphism */
+  .glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
 
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    border: 1px solid var(--border-hover);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), 0 0 16px rgba(129, 140, 248, 0.1);
+  }
+  
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+  }
 
-html {
-  width: 100%;
-  overflow-x: hidden;
+  /* Vibrant modern text gradients */
+  .text-gradient-premium {
+    background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, var(--purple-accent) 0%, var(--teal-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects */
+  .glow {
+    box-shadow: 0 0 20px var(--shadow-glow);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px var(--shadow-glow);
+  }
 }
 
-body {
-  background: radial-gradient(ellipse at top center, #1b2845 0%, var(--bg-midnight) 100%);
-  background-attachment: fixed;
-  color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  min-height: 100vh;
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-}
-
+/* Animations */
 @keyframes twinkle {
-  0% { opacity: 0.2; }
-  50% { opacity: 1; }
-  100% { opacity: 0.2; }
+  0% { opacity: 0.1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.1; }
 }
 
 @keyframes drift {
@@ -49,7 +102,26 @@ body {
   to { transform: translateY(-50px); }
 }
 
-/* Yıldız tozu efekti - Ana Yıldızlar */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+/* Star base layer */
 body::before {
   content: '';
   position: fixed;
@@ -58,17 +130,17 @@ body::before {
   width: 100%;
   height: calc(100% + 50px);
   background-image: 
-    radial-gradient(1px 1px at 25% 15%, #ffffff 100%, transparent),
-    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.9) 100%, transparent),
-    radial-gradient(1.2px 1.2px at 80% 30%, #ffffff 100%, transparent),
-    radial-gradient(0.8px 0.8px at 15% 85%, rgba(255,255,255,0.8) 100%, transparent);
-  background-size: 500px 500px;
-  animation: twinkle 4s infinite ease-in-out, drift 60s linear infinite;
+    radial-gradient(1px 1px at 25% 15%, rgba(255,255,255,0.7) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 50% 60%, rgba(255,255,255,0.9) 100%, transparent),
+    radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.6) 100%, transparent),
+    radial-gradient(0.8px 0.8px at 15% 85%, rgba(255,255,255,0.4) 100%, transparent);
+  background-size: 600px 600px;
+  animation: twinkle 5s infinite ease-in-out, drift 100s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Secondary Stars - Alternatif Yanıp Sönme */
+/* Secondary slow stars */
 body::after {
   content: '';
   position: fixed;
@@ -77,20 +149,11 @@ body::after {
   width: 100%;
   height: calc(100% + 50px);
   background-image: 
-    radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.8) 100%, transparent),
-    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,1) 100%, transparent),
-    radial-gradient(0.8px 0.8px at 30% 20%, rgba(255,255,255,0.6) 100%, transparent);
-  background-size: 400px 400px;
-  animation: twinkle 6s infinite ease-in-out alternate-reverse, drift 90s linear infinite;
+    radial-gradient(1.2px 1.2px at 10% 80%, rgba(129, 140, 248, 0.6) 100%, transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba(45, 212, 191, 0.5) 100%, transparent),
+    radial-gradient(0.8px 0.8px at 30% 20%, rgba(255,255,255,0.4) 100%, transparent);
+  background-size: 450px 450px;
+  animation: twinkle 7s infinite ease-in-out alternate-reverse, drift 150s linear infinite;
   pointer-events: none;
   z-index: 1;
-}
-
-/* Glow efekti için utility class */
-.glow {
-  box-shadow: 0 0 20px var(--shadow-glow);
-}
-
-.glow-text {
-  text-shadow: 0 0 10px var(--shadow-glow);
 }

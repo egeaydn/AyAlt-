@@ -140,72 +140,72 @@ export default function ShareAndCommentsPage() {
   return (
     <div>
       <div className="relative min-h-screen w-full flex flex-col items-center">
-        <header className="relative z-10 w-full pt-12 pb-8 px-6 ">
-          <div className="w-full max-w-3xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-serif text-white mb-1.5 tracking-wide">
+        <header className="relative z-10 w-full pt-16 pb-8 px-4 sm:px-6">
+          <div className="w-full max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="animate-float">
+              <h1 className="text-3xl md:text-4xl font-bold text-gradient-premium mb-2 tracking-tight">
                 Paylaşımların ve Yorumların
               </h1>
-              <p className="text-[#94a3b8] text-[14px] font-medium tracking-wide">
+              <p className="text-[#cbd5e1] text-[15px] font-medium tracking-wide">
                 İçini döktüğün ve yanıtladığın her şey burada saklı.
               </p>
             </div>
             
-            <div className="flex bg-[#1e293b]/50 border border-[#334155] rounded-full p-1 self-start sm:self-center">
+            <div className="flex bg-white/5 glass-card border-none rounded-full p-1.5 self-start sm:self-center">
               <button
                 onClick={() => setActiveTab("posts")}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   activeTab === "posts" 
-                    ? "bg-white text-[#0f172a] shadow-sm" 
-                    : "text-[#cbd5e1] hover:text-white"
+                    ? "bg-linear-to-r from-teal-500/20 to-indigo-500/20 text-white shadow-md border border-white/10" 
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                Paylaşımlar ({posts.length})
+                Paylaşımlar <span className="opacity-70 text-xs ml-1">({posts.length})</span>
               </button>
               <button
                 onClick={() => setActiveTab("comments")}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   activeTab === "comments" 
-                    ? "bg-white text-[#0f172a] shadow-sm" 
-                    : "text-[#cbd5e1] hover:text-white"
+                    ? "bg-linear-to-r from-teal-500/20 to-indigo-500/20 text-white shadow-md border border-white/10" 
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                Yorumlar ({comments.length})
+                Yorumlar <span className="opacity-70 text-xs ml-1">({comments.length})</span>
               </button>
               <button
                 onClick={() => setActiveTab("polls")}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   activeTab === "polls" 
-                    ? "bg-white text-[#0f172a] shadow-sm" 
-                    : "text-[#cbd5e1] hover:text-white"
+                    ? "bg-linear-to-r from-teal-500/20 to-indigo-500/20 text-white shadow-md border border-white/10" 
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                Anketler ({polls.length})
+                Anketler <span className="opacity-70 text-xs ml-1">({polls.length})</span>
               </button>
             </div>
           </div>
         </header>
 
-        <main className="relative z-10 w-full pb-32 pt-8 px-6">
+        <main className="relative z-10 w-full pb-32 pt-8 px-4 sm:px-6">
           {loading ? (
-            <div className="w-full max-w-3xl mx-auto text-center py-10 opacity-60 text-white flex flex-col items-center gap-3">
-              <div className="w-6 h-6 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
-              Yükleniyor...
+            <div className="w-full max-w-4xl mx-auto text-center py-20 text-[--teal-accent] flex flex-col items-center gap-4">
+              <div className="w-10 h-10 border-indigo-500/30 border-t-teal-400 rounded-full animate-spin border-4" />
+              <span className="animate-pulse-soft font-medium">Yükleniyor...</span>
             </div>
           ) : activeTab === "posts" ? (
             posts.length > 0 ? (
-              <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
+              <div className="w-full max-w-4xl mx-auto flex flex-col gap-5 text-left">
                 {posts.map((post) => (
                   <div 
                     key={post.id} 
                     onClick={() => setSelectedPost(post)}
-                    className="group relative bg-(--bg-card) border border-(--border-subtle) rounded-2xl p-5 sm:p-6 
+                    className="group relative glass-card rounded-2xl p-5 sm:p-7 
                                flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between items-start 
-                               hover:bg-(--bg-card-hover) transition-all duration-300 cursor-pointer shadow-lg overflow-hidden"
+                               transition-all duration-300 transform hover:-translate-y-1 cursor-pointer overflow-hidden"
                   >
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-transparent via-[#334155]/50 to-transparent group-hover:via-[#64748b]/80 transition-all duration-300" />
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-teal-500/30 via-indigo-500/50 to-transparent group-hover:from-teal-400 group-hover:via-indigo-400 transition-all duration-300" />
                     
-                    <div className="flex-1 min-w-0 w-full">
+                    <div className="flex-1 min-w-0 w-full pl-2">
                       <div className="flex flex-wrap items-center gap-2 mb-3">
                         {post.mood && (
                           <span className="text-[11px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-[#334155]/50 border border-[#475569]/30 text-[#e2e8f0]">
@@ -237,66 +237,66 @@ export default function ShareAndCommentsPage() {
                 ))}
               </div>
             ) : (
-              <div className="w-full max-w-3xl mx-auto text-center py-20 bg-(--bg-card)/50 border border-white/5 rounded-3xl backdrop-blur-sm">
-                <div className="w-16 h-16 bg-[#1e293b]/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#334155]">
-                  <MoreHorizontal className="w-6 h-6 text-[#94a3b8]" />
+              <div className="w-full max-w-4xl mx-auto text-center py-20 glass-card rounded-3xl">
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-5 border border-white/10 glow">
+                  <MoreHorizontal className="w-6 h-6 text-teal-400" />
                 </div>
-                <h3 className="text-lg font-medium text-white mb-2">Henüz Bir Şey Paylaşmadın</h3>
-                <p className="text-[#94a3b8] text-sm max-w-sm mx-auto">
+                <h3 className="text-xl font-medium text-white mb-3">Henüz Bir Şey Paylaşmadın</h3>
+                <p className="text-gray-400 text-[15px] max-w-md mx-auto leading-relaxed">
                   Ana sayfadaki paylaş menüsünü kullanarak içini döktüğün her şey burada listelenecek.
                 </p>
               </div>
             )
           ) : activeTab === "comments" ? (
             comments.length > 0 ? (
-              <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
+              <div className="w-full max-w-4xl mx-auto flex flex-col gap-5 text-left">
                 {comments.map((comment) => (
                   <div 
                     key={comment.id} 
                     onClick={() => handleCommentClick(comment.postId)}
-                    className="group relative bg-(--bg-card) border border-(--border-subtle) rounded-2xl p-5 sm:p-6 
-                               flex flex-col gap-2 
-                               hover:bg-(--bg-card-hover) transition-all duration-300 cursor-pointer shadow-lg overflow-hidden"
+                    className="group relative glass-card rounded-2xl p-5 sm:p-7 
+                               flex flex-col gap-3 
+                               transition-all duration-300 transform hover:-translate-y-1 cursor-pointer overflow-hidden"
                   >
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-transparent via-[#7dd3fc]/30 to-transparent group-hover:via-[#7dd3fc]/60 transition-all duration-300" />
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-indigo-500/30 via-teal-500/50 to-transparent group-hover:from-indigo-400 group-hover:via-teal-400 transition-all duration-300" />
                     
-                    <div className="flex items-center gap-2 text-[12.5px] text-[#64748b] mb-1">
+                    <div className="flex items-center gap-2 text-[12.5px] text-[#64748b] mb-1 pl-2">
                       <MessageCircle className="w-3.5 h-3.5" />
                       <span>{getTimeAgo(comment.createdAt)}</span>
                       <span className="ml-2 px-1.5 py-0.5 rounded-full bg-white/5 text-[10px] uppercase tracking-wider text-[#cbd5e1]">Gönderiyi Gör</span>
                     </div>
                     
-                    <p className="text-[#cbd5e1] leading-[1.65] whitespace-pre-wrap break-all text-[14.5px] font-normal tracking-[0.015em]">
+                    <p className="text-[#cbd5e1] leading-[1.65] whitespace-pre-wrap break-all text-[14.5px] font-normal tracking-[0.015em] pl-2">
                       {comment.content}
                     </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="w-full max-w-3xl mx-auto text-center py-20 bg-(--bg-card)/50 border border-white/5 rounded-3xl backdrop-blur-sm">
-                <div className="w-16 h-16 bg-[#1e293b]/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#334155]">
-                  <MessageCircle className="w-6 h-6 text-[#94a3b8]" />
+              <div className="w-full max-w-4xl mx-auto text-center py-20 glass-card rounded-3xl">
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-5 border border-white/10 glow">
+                  <MessageCircle className="w-6 h-6 text-indigo-400" />
                 </div>
-                <h3 className="text-lg font-medium text-white mb-2">Henüz Kimseye Yorum Yapmadın</h3>
-                <p className="text-[#94a3b8] text-sm max-w-sm mx-auto">
+                <h3 className="text-xl font-medium text-white mb-3">Henüz Kimseye Yorum Yapmadın</h3>
+                <p className="text-gray-400 text-[15px] max-w-md mx-auto leading-relaxed">
                   Ana sayfadaki gönderilere tıklayarak fikirlerini anonim olarak paylaşabilirsin.
                 </p>
               </div>
             )
           ) : activeTab === "polls" ? (
             polls.length > 0 ? (
-              <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
+              <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 text-left">
                 {polls.map((poll) => (
                   <PollCard key={poll.id} {...poll} onVote={() => {}} />
                 ))}
               </div>
             ) : (
-              <div className="w-full max-w-3xl mx-auto text-center py-20 bg-(--bg-card)/50 border border-white/5 rounded-3xl backdrop-blur-sm">
-                <div className="w-16 h-16 bg-[#1e293b]/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#334155]">
-                  <PieChart className="w-6 h-6 text-[#94a3b8]" />
+              <div className="w-full max-w-4xl mx-auto text-center py-20 glass-card rounded-3xl">
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-5 border border-white/10 glow">
+                  <PieChart className="w-6 h-6 text-teal-400" />
                 </div>
-                <h3 className="text-lg font-medium text-white mb-2">Henüz Bir Anket Başlatmadın</h3>
-                <p className="text-[#94a3b8] text-sm max-w-sm mx-auto">
+                <h3 className="text-xl font-medium text-white mb-3">Henüz Bir Anket Başlatmadın</h3>
+                <p className="text-gray-400 text-[15px] max-w-md mx-auto leading-relaxed">
                   Anketler sayfasından veya alt menüdeki oluştur butonunu kullanarak ilk anketini oluşturabilirsin.
                 </p>
               </div>

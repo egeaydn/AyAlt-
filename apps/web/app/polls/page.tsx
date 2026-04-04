@@ -63,34 +63,34 @@ export default function PollsPage() {
   return (
     <div>
       <div className="relative min-h-screen w-full flex flex-col items-center">
-        <header className="relative z-10 w-full pt-12 pb-8 px-6">
-          <div className="w-full max-w-5xl mx-auto flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-serif text-white mb-2 tracking-wide opacity-90">
+        <header className="relative z-10 w-full pt-16 pb-10 px-4 sm:px-6">
+          <div className="w-full max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="animate-float">
+              <h1 className="text-4xl sm:text-5xl font-bold text-gradient-premium mb-3 tracking-tight">
                 Topluluk Anketleri
               </h1>
-              <p className="text-[#94a3b8] text-[14px] font-medium tracking-wide">
+              <p className="text-[#cbd5e1] text-[15px] font-medium tracking-wide">
                 Düşünceni belirt, kalabalığın nabzını tut.
               </p>
             </div>
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 bg-[var(--accent-moon)]/10 hover:bg-[var(--accent-moon)]/20 text-[var(--accent-moon)] px-4 py-2 rounded-xl transition-all font-medium text-sm border border-[var(--accent-moon)]/20"
+              className="flex items-center gap-2 glass-card hover:scale-105 text-[--teal-accent] px-5 py-3 rounded-2xl transition-all duration-300 font-semibold text-sm shadow-lg shadow-teal-500/10 group"
             >
-              <Plus className="w-4 h-4" />
-              <span className="hidden sm:inline">Anket Oluştur</span>
+              <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+              <span>Anket Oluştur</span>
             </button>
           </div>
         </header>
 
-        <main className="relative z-10 w-full pb-32 px-6">
+        <main className="relative z-10 w-full pb-32 px-4 sm:px-6">
           {loading ? (
-            <div className="w-full max-w-5xl mx-auto text-center py-10 opacity-60 text-white flex flex-col items-center gap-3">
-              <div className="w-6 h-6 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
-              Anketler yükleniyor...
+            <div className="w-full max-w-5xl mx-auto text-center py-20 text-[--teal-accent] flex flex-col items-center gap-4">
+              <div className="w-10 h-10 border-indigo-500/30 border-t-teal-400 rounded-full animate-spin border-4" />
+              <span className="animate-pulse-soft font-medium">Anketler yükleniyor...</span>
             </div>
           ) : polls.length > 0 ? (
-            <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
+            <div className="w-full max-w-3xl mx-auto flex flex-col gap-6">
               {polls.map((poll) => (
                 <PollCard
                   key={poll.id}
@@ -100,8 +100,9 @@ export default function PollsPage() {
               ))}
             </div>
           ) : (
-            <div className="w-full max-w-5xl mx-auto text-center py-10 opacity-60 text-white">
-              Henüz hiçbir anket açılmamış. İlk soran sen ol!
+            <div className="w-full max-w-5xl mx-auto text-center py-20 text-white/50 glass-card rounded-2xl">
+              <p className="text-lg font-medium">Henüz hiçbir anket açılmamış.</p>
+              <p className="mt-2 text-sm">İlk soran sen ol!</p>
             </div>
           )}
         </main>

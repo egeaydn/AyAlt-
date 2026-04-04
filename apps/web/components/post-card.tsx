@@ -26,22 +26,23 @@ export function PostCard({ id, content, repliesCount, createdAt, onClick }: Post
 
   return (
     <div 
-      className="group relative bg-(--bg-card) rounded-[18px] p-5 overflow-hidden
-                 border border-(--border-subtle) hover:bg-(--bg-card-hover) w-full
-                 transition-colors duration-300 cursor-pointer flex flex-col"
+      className="group relative glass-card rounded-[22px] p-6 overflow-hidden w-full
+                 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-500/10 cursor-pointer flex flex-col"
       onClick={onClick || (() => window.location.href = `/post/${id}`)}
     >
-      <div className="mb-5 flex-1">
-        <p className="text-[#cbd5e1] leading-[1.6] whitespace-pre-wrap break-all text-[14px] font-normal tracking-[0.015em]">
+      <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-teal-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+      <div className="mb-5 flex-1 relative z-10">
+        <p className="text-gray-200 leading-[1.7] whitespace-pre-wrap wrap-break-word text-[15px] font-normal tracking-[0.015em] line-clamp-6 group-hover:text-white transition-colors duration-300">
           {content}
         </p>
       </div>
 
-      <div className="flex items-center justify-between text-[#64748b] text-[12px] mt-auto font-medium">
-        <span>{getTimeAgo(createdAt)}</span>
+      <div className="flex items-center justify-between text-gray-500 text-[13px] mt-auto font-medium relative z-10 border-t border-white/5 pt-3">
+        <span className="group-hover:text-gray-400 transition-colors">{getTimeAgo(createdAt)}</span>
         
-        <div className="flex items-center gap-1.5 opacity-50 group-hover:opacity-100 transition-opacity">
-          <MessageCircle className="w-[14px] h-[14px] stroke-[2px]" />
+        <div className="flex items-center gap-1.5 opacity-60 group-hover:opacity-100 group-hover:text-teal-400 transition-all duration-300">
+          <MessageCircle className="w-[15px] h-[15px] stroke-[2px]" />
           {repliesCount > 0 && <span>{repliesCount}</span>}
         </div>
       </div>

@@ -53,8 +53,8 @@ export function PollCard({ id, question, totalVotes: initialTotalVotes, options,
   };
 
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-2xl p-5 hover:border-[var(--border-strong)] transition-all duration-300">
-      <h3 className="text-[var(--text-primary)] font-medium text-lg leading-snug mb-4">
+    <div className="glass-card rounded-2xl p-6 transition-all duration-300 transform hover:-translate-y-1">
+      <h3 className="text-xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-white to-gray-400 leading-snug mb-5">
         {question}
       </h3>
 
@@ -66,26 +66,28 @@ export function PollCard({ id, question, totalVotes: initialTotalVotes, options,
             <button
               key={opt.id}
               onClick={() => handleVote(opt.id)}
-              disabled={hasVoted}
-              className={`relative w-full overflow-hidden rounded-xl border p-3 text-left transition-all ${
+              disabled={hasVoted || isVoting}
+              className={`relative w-full overflow-hidden rounded-xl border p-4 text-left transition-all duration-300 ${
                 hasVoted 
-                  ? "border-[var(--border-subtle)] bg-[var(--bg-midnight)]/30 cursor-default" 
-                  : "border-[var(--border-subtle)] hover:border-[var(--accent-moon)]/50 hover:bg-[var(--bg-midnight)]/50 cursor-pointer"
+                  ? "border-transparent bg-white/5 cursor-default" 
+                  : "border-white/10 hover:border-teal-400/50 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(45,212,191,0.2)] cursor-pointer group"
               }`}
             >
               {hasVoted && (
                 <div 
-                  className="absolute left-0 top-0 bottom-0 bg-[var(--accent-moon)]/20 transition-all duration-1000 ease-out"
+                  className="absolute left-0 top-0 bottom-0 bg-linear-to-r from-teal-500/30 to-indigo-500/30 transition-all duration-1000 ease-out"
                   style={{ width: `${percentage}%` }}
                 />
               )}
               
-              <div className="relative z-10 flex justify-between items-center text-sm">
-                <span className={`font-medium ${hasVoted ? 'text-[var(--text-secondary)]' : 'text-[var(--text-primary)]'}`}>
+              <div className="relative z-10 flex justify-between items-center text-[15px]">
+                <span className={`font-medium transition-colors ${
+                  hasVoted ? 'text-gray-300' : 'text-gray-100 group-hover:text-white'
+                }`}>
                   {opt.option_text}
                 </span>
                 {hasVoted && (
-                  <span className="text-[var(--text-muted)] text-xs font-semibold">
+                  <span className="text-teal-300 font-bold tracking-wide">
                     {percentage}%
                   </span>
                 )}
@@ -95,9 +97,9 @@ export function PollCard({ id, question, totalVotes: initialTotalVotes, options,
         })}
       </div>
 
-      <div className="mt-4 text-xs text-[var(--text-muted)] flex items-center justify-between">
-        <span>{totalVotes} Oy</span>
-        {hasVoted && <span className="text-[var(--accent-moon)] font-medium">Oy kullandın</span>}
+      <div className="mt-5 pt-4 border-t border-white/5 text-sm flex items-center justify-between">
+        <span className="text-gray-400">{totalVotes} Oy</span>
+        {hasVoted && <span className="text-teal-400 font-medium py-1 px-3 bg-teal-400/10 rounded-full text-xs">Oy kullandın</span>}
       </div>
     </div>
   );
