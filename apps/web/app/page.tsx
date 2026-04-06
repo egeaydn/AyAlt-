@@ -53,7 +53,10 @@ export default function Page() {
     <div>
       <div className="relative min-h-screen w-full flex flex-col items-center">
         <header className="relative z-10 w-full pt-16 pb-12 px-4 sm:px-6">
-          <div className="w-full max-w-5xl mx-auto text-center animate-float">
+          <div className="w-full max-w-5xl mx-auto text-center animate-float flex flex-col items-center">
+            <div className="relative w-24 h-24 mb-6 rounded-full overflow-hidden shadow-[0_0_20px_rgba(45,212,191,0.3)] border border-white/10 ring-2 ring-white/5">
+              <img src="/logo.png" alt="AyAltı Logo" className="object-cover w-full h-full" />
+            </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gradient-premium mb-4 tracking-tight drop-shadow-sm">
               Uykusuz Değilsin
             </h1>
